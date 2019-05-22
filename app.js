@@ -15,11 +15,11 @@ const users = require("./routes/users");
 
 //Passport Config
 require("./config/passport")(passport);
-
+const db = require("./config/database");
 const app = express();
 
 mongoose
-  .connect("mongodb://localhost:27017/vidjot-dev2", {
+  .connect(db.mongoURI, {
     useNewUrlParser: true
   })
   .then(() => {
@@ -73,7 +73,7 @@ app.use("/about", about);
 app.use("/ideas", ideas);
 app.use("/users", users);
 
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`running app on ${port}`);
